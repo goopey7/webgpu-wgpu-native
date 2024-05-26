@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+include(GNUInstallDirs)
 project(webgpu)
 
 find_program(CARGO_EXECUTABLE cargo)
@@ -42,4 +43,4 @@ target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/include
 
 install(FILES ${CMAKE_BINARY_DIR}/libwebgpu.a DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${CMAKE_BINARY_DIR}/libwebgpu.so DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_LIBDIR}/webgpu/ FILES_MATCHING PATTERN "webgpu.hpp" PATTERN "webgpu.h" PATTERN "wgpu.h")
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "webgpu.hpp" PATTERN "webgpu.h" PATTERN "wgpu.h")
