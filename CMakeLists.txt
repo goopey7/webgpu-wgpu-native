@@ -26,7 +26,6 @@ add_custom_command(
 )
 endif()
 
-
 add_custom_target(rust_build ALL
 	DEPENDS ${CMAKE_BINARY_DIR}/libwebgpu.a
 )
@@ -41,6 +40,6 @@ add_library(${PROJECT_NAME} INTERFACE)
 target_link_libraries(${PROJECT_NAME} INTERFACE wgpu_native)
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/include/)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "webgpu.hpp" PATTERN "webgpu.h" PATTERN "wgpu.h")
 install(FILES ${CMAKE_BINARY_DIR}/libwebgpu.a DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${CMAKE_BINARY_DIR}/libwebgpu.so DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/webgpu/ FILES_MATCHING PATTERN "webgpu.hpp" PATTERN "webgpu.h" PATTERN "wgpu.h")
