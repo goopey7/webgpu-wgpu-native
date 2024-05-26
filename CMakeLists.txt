@@ -41,3 +41,5 @@ add_library(${PROJECT_NAME} INTERFACE)
 target_link_libraries(${PROJECT_NAME} INTERFACE wgpu_native)
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/include)
 
+install(TARGETS ${PROJECT_NAME})
+
