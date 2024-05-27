@@ -62,7 +62,9 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 # Install export configuration
-install(EXPORT ${PROJECT_NAME}_Exports DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION})
+install(EXPORT ${PROJECT_NAME}_Exports 
+	EXPORT_LINK_INTERFACE_LIBRARIES
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION})
 
 # Manually install wgpu_native files
 install(FILES ${LIBWEBGPU_A} DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -75,28 +77,48 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLU
 
 # Include CMake package config helpers
 include(CMakePackageConfigHelpers)
+# Define the installation directory for the targets
+set(INSTALL_CMAKE_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION})
 
-# Configure package configuration file
+# Configure the package configuration file
 configure_package_config_file(
     "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
     "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}
+    INSTALL_DESTINATION ${INSTALL_CMAKE_DIR}
 )
 
-# Write package version file
+# Write the package version file
 write_basic_package_version_file(
-    "${PROJECT_NAME}ConfigVersion.cmake"
+    "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion
 )
 
-# Configure pkg-config file
-configure_file("${PROJECT_SOURCE_DIR}/cmake/webgpu.pc.in" webgpu.pc @ONLY)
-
-# Install CMake configuration files
+# Install the package configuration and version files
 install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}
+    "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+    "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    DESTINATION ${INSTALL_CMAKE_DIR}
+)
+
+# Generate and install the target export file for each configuration
+foreach(CONF ${CMAKE_CONFIGURATION_TYPES})
+    string(TOUPPER ${CONF} CONF_UPPER)
+    configure_file(
+        "${CMAKE_SOURCE_DIR}/cmake/webgpuTargets.cmake.in"
+        "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Targets-${CONF}.cmake"
+        @ONLY
+    )
+    install(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Targets-${CONF}.cmake"
+        DESTINATION ${INSTALL_CMAKE_DIR}
+        RENAME "${PROJECT_NAME}Targets-${CONF}.cmake"
+    )
+endforeach()
+
+# Export the targets to a file
+install(EXPORT ${PROJECT_NAME}_Exports
+    FILE ${PROJECT_NAME}Targets.cmake
+    NAMESPACE ${PROJECT_NAME}::
+    DESTINATION ${INSTALL_CMAKE_DIR}
 )
 

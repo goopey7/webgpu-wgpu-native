@@ -1,0 +1,16 @@
+# Commands may need to know the format version.
+set(CMAKE_IMPORT_FILE_VERSION 1)
+
+@PACKAGE_INIT@
+
+# Import target "wgpu_native" for configuration "@CMAKE_BUILD_TYPE@".
+set_property(TARGET wgpu_native APPEND PROPERTY IMPORTED_CONFIGURATIONS @CMAKE_BUILD_TYPE@)
+set_target_properties(wgpu_native PROPERTIES
+  IMPORTED_LOCATION_@UPPERCASE_CMAKE_BUILD_TYPE@ "${_IMPORT_PREFIX}/@CMAKE_BUILD_TYPE@/libwgpu_native.a"
+  )
+
+list(APPEND _cmake_import_check_targets wgpu_native)
+list(APPEND _cmake_import_check_files_for_wgpu_native "${_IMPORT_PREFIX}/@CMAKE_BUILD_TYPE@/libwgpu_native.a")
+
+# Commands beyond this point should not need to know the version.
+set(CMAKE_IMPORT_FILE_VERSION)
