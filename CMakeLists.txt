@@ -17,8 +17,8 @@ add_custom_command(
     OUTPUT ${LIBWEBGPU_A}
     COMMAND ${CARGO_EXECUTABLE} build --manifest-path ${CMAKE_SOURCE_DIR}/wgpu-native/Cargo.toml
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/wgpu-native
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/${CARGO_BUILD_TYPE}/libwgpu_native.a ${LIBWEBGPU_A}
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/${CARGO_BUILD_TYPE}/libwgpu_native.so ${LIBWEBGPU_SO}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/debug/libwgpu_native.a ${LIBWEBGPU_A}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/debug/libwgpu_native.so ${LIBWEBGPU_SO}
     COMMENT "Building wgpu-native with Cargo"
 )
 else()
@@ -26,8 +26,8 @@ add_custom_command(
     OUTPUT ${LIBWEBGPU_A}
     COMMAND ${CARGO_EXECUTABLE} build --manifest-path ${CMAKE_SOURCE_DIR}/wgpu-native/Cargo.toml --release
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/wgpu-native
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/${CARGO_BUILD_TYPE}/libwgpu_native.a ${LIBWEBGPU_A}
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/${CARGO_BUILD_TYPE}/libwgpu_native.so ${LIBWEBGPU_SO}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/release/libwgpu_native.a ${LIBWEBGPU_A}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/release/libwgpu_native.so ${LIBWEBGPU_SO}
     COMMENT "Building wgpu-native with Cargo"
 )
 endif()
