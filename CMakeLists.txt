@@ -29,6 +29,7 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/${CARGO_BUILD_TYPE}/libwgpu_native.a ${LIBWEBGPU_A}
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/wgpu-native/target/${CARGO_BUILD_TYPE}/libwgpu_native.so ${LIBWEBGPU_SO}
     COMMENT "Building wgpu-native with Cargo"
+)
 endif()
 
 
