@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+
+Name: webgpu-wgpu-native
+Description: WebGPU wgpu backend
+Version: 1.0.0
+URL: https://github.com/goopey7/webgpu-wgpu-native
+Libs: -L${libdir} -lwgpu_native
+Cflags: -I${includedir}
