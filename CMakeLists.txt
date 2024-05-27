@@ -9,8 +9,8 @@ if(NOT CARGO_EXECUTABLE)
   message(FATAL_ERROR "Cargo not found. Make sure it is installed and in your PATH.")
 endif()
 
-set(LIBWEBGPU_A ${CMAKE_BINARY_DIR}/libwebgpu.a)
-set(LIBWEBGPU_SO ${CMAKE_BINARY_DIR}/libwebgpu.so)
+set(LIBWEBGPU_A ${CMAKE_BINARY_DIR}/libwgpu_native.a)
+set(LIBWEBGPU_SO ${CMAKE_BINARY_DIR}/libwgpu_native.so)
 
 if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
 add_custom_command(
